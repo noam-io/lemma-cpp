@@ -7,6 +7,9 @@ COMPONENT_NAME = LemmaLib
 TARGET_LIB = \
 	lib/lib$(COMPONENT_NAME).a
 
+SAMPLE_TARGET = \
+	$(COMPONENT_NAME)_sample
+
 TEST_TARGET = \
 	$(COMPONENT_NAME)_tests
 
@@ -55,6 +58,7 @@ TEST_SRC_DIRS = \
 	lemmatests
 
 VERIFICATION_MAIN = verification/main.o
+SAMPLE_MAIN = sampleapp/SampleApp.o
 #includes for all compiles
 INCLUDES =\
   -I.\
@@ -76,4 +80,14 @@ $(VERIFICATION_TARGET): $(PRODUCTION_CODE_START) $(PLATFORM_OBJ) $(VERIFICATION_
 	$(SILENCE)echo Linking $@
 	$(SILENCE)$(LINK.o) -o $@ $^ $(LD_LIBRARIES)
 
+
+$(SAMPLE_TARGET): $(PRODUCTION_CODE_START) $(PLATFORM_OBJ) $(SAMPLE_MAIN) $(TARGET_LIB) $(USER_LIBS) $(PRODUCTION_CODE_END) $(STDLIB_CODE_START)
+	echo $(PLATFORM_OBJ)
+	$(SILENCE)echo Linking $@
+	$(SILENCE)$(LINK.o) -o $@ $^ $(LD_LIBRARIES)
+	./$(SAMPLE_TARGET)
+
+
 verify: $(VERIFICATION_TARGET)
+
+sample: $(SAMPLE_TARGET)
