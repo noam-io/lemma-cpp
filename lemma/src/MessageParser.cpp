@@ -11,6 +11,7 @@ Polo * MessageParser::parsePolo( char const * message )
   json_error_t error;
   json_t * messageName;
   json_t * roomName;
+  const char * roomNameChar;
   json_t * port;
   json_t * json = json_loads(message, JSON_DISABLE_EOF_CHECK, &error);
   if(json)
@@ -19,12 +20,14 @@ Polo * MessageParser::parsePolo( char const * message )
     if ( 0 == strcmp( json_string_value( messageName ), "polo") )
     {
       Polo * polo = new Polo();
-
+	
       roomName = json_array_get( json, 1 );
-      polo->setRoomName( json_string_value( roomName ) );
+      polo->setRoomName( json_string_value(roomName) );
 
       port = json_array_get( json, 2 );
       polo->port = json_integer_value( port );
+
+      json_decref( json );
       return polo;
     }
     json_decref( json );

@@ -1,7 +1,8 @@
 //Copyright (c) 2014, IDEO
 
+#include <stdio.h>
 #include "MessageParser.h"
-#include "event.h"
+#include "Event.h"
 #include "CppUTest/TestHarness.h"
 #include "Polo.h"
 
@@ -68,6 +69,7 @@ TEST(MessageParser, parsesPolo)
 {
   const char * message = "[\"polo\", \"room554\", 8839]";
   Polo * polo = MessageParser::parsePolo(message);
+  CHECK_FALSE( polo == 0 );
   STRCMP_EQUAL("room554", polo->roomName);
   CHECK_EQUAL(8839, polo->port);
   delete polo;

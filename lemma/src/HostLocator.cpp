@@ -1,6 +1,5 @@
 //Copyright (c) 2014, IDEO 
 
-#include <string.h>
 
 #include "HostLocator.h"
 #include "MessageBuilder.h"

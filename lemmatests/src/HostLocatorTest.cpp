@@ -3,9 +3,9 @@
 #include "CppUTest/TestHarness.h"
 #include "CppUTest/MemoryLeakDetectorMallocMacros.h"
 #include "HostLocator.h"
-#include "udp.h"
+#include "Udp.h"
 #include "MessageBuilder.h"
-#include "Testticker.h"
+#include "TestTicker.h"
 
 class TestUdp : public Udp
 {
