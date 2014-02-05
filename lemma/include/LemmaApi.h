@@ -29,7 +29,10 @@ public:
   void sendEvent(char const * name, double value);
   void sendEvent(char const * name, struct LemmaList * list);
   bool isConnected();
+  const char* getLemmaId();
+  void setLemmaId(const char* _lemmaId);
   virtual bool messageReceived(char* msg, size_t length);
+  void sendMessageToClient(const char * message);
 
 private:
   LemmaApi & operator=(LemmaApi const &);
@@ -43,7 +46,7 @@ private:
   NoamServerLocator * locator;
   struct timeval lastUpdate;
   const char* lemmaId;
-  void sendMessageToClient(const char * message);
+
   bool connected;
   bool connectAndRegister();
   char* maestroIpAddress; 

@@ -6,6 +6,7 @@ Lemma for embedded C++ applications.
 
 Currently tested on:
 * Beaglebone Black
+* Arduino Yun (also supports Serial with Arduino via LemmaApiSerial)
 
 
 Included Dependencies

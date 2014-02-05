@@ -38,6 +38,14 @@ LemmaApi::~LemmaApi()
   delete locator;
 }
 
+const char* LemmaApi::getLemmaId(){
+	return lemmaId;
+}
+
+void LemmaApi::setLemmaId(const char* _lemmaId){
+	lemmaId = _lemmaId;
+}
+
 void LemmaApi::hear(char* eventName, event_handler_t handler)
 {
   filter->add(eventName, handler);
