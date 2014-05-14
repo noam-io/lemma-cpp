@@ -5,7 +5,7 @@
  *      Author: dbrody
  */
 
-#include "../include/SerialCommunication.h"
+#include "SerialCommunication.h"
 
 SerialCommunication::SerialCommunication(const char* _device, speed_t _baud) {
 	strcpy(device, _device);

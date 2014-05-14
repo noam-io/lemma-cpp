@@ -2,7 +2,7 @@
 #define LEMMA_API_H
 
 #include "Event.h"
-#include "../sockets/TcpReader.h"
+#include "TcpReader.h"
 #include "EventHandler.h"
 #include <sys/time.h>
 
@@ -49,7 +49,7 @@ private:
 
   bool connected;
   bool connectAndRegister();
-  char* maestroIpAddress; 
+  char* maestroIpAddress;
   int listenPort;
   int broadcastPort;
   bool findMaestro();

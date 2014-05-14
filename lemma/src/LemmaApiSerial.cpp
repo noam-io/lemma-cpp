@@ -5,7 +5,7 @@
  *      Author: dbrody
  */
 
-#include "../include/LemmaApiSerial.h"
+#include "LemmaApiSerial.h"
 #include <iostream>
 
 LemmaApiSerial::LemmaApiSerial(const char* lemmaId, const char* device, speed_t baud) : LemmaApi(lemmaId){
