@@ -8,21 +8,20 @@ class TestTcpReader : public TcpReader
 public:
   char msgReceived[1024];
   int messagesReceived;
-  TestTcpReader() : messagesReceived(0) {
-    memset(msgReceived, 0, 1024);
-  }
+  TestTcpReader() : messagesReceived(0) { }
   virtual bool messageReceived(char* msg, size_t length)  {
+    memset(msgReceived, 0, 1024);
     messagesReceived++;
     strncpy(msgReceived, msg, length);
     return true;
   }
 };
 
-TEST_GROUP(TcpReader) 
+TEST_GROUP(TcpReader)
 {
   TestTcpReader reader;
   Connection conn;
-  
+
 };
 
 TEST(TcpReader, HandlesMessage){

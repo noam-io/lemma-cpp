@@ -1,0 +1,12 @@
+........
+lemmatests/src/MessageParserTests.cpp:51: error: Failure in TEST(MessageParser, parsesListOfStrings)
+parsesListOfStrings:51: error:
+	Allocation/deallocation type mismatch
+   allocated at file: <unknown> line: 0 size: 32 type: new []
+   deallocated at file: <unknown> line: 0 type: delete
+
+
+..........................................
+.....
+Errors (1 failures, 55 tests, 55 ran, 101 checks, 0 ignored, 0 filtered out, 2 ms)
+

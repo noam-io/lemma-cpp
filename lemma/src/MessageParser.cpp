@@ -8,7 +8,7 @@ Event * MessageParser::parse( char const * message )
   json_t * eventName;
   json_t * eventValue;
   json_t * json = json_loads(message, JSON_DISABLE_EOF_CHECK, &error);
-  if(json) 
+  if(json)
   {
     eventName = json_array_get( json, 2 );
     eventValue = json_array_get( json, 3 );
