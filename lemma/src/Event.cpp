@@ -1,6 +1,4 @@
-
-#include "../include/Event.h"
-
+#include "Event.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -105,6 +103,7 @@ void EventList::set(size_t index, char const * value)
 {
   char * newString = (char*)malloc(strlen(value) + 1);
   strcpy(newString, value);
+//TODO test condition
   if(e.list[index] != NULL){
 	  free((void*)e.list[index]);
   }

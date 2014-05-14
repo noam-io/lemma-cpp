@@ -1,7 +1,7 @@
-#include "../include/LemmaList.h"
-#include "../include/LemmaUtil.h"
-#include "../include/LemmaListDeserializer.h"
-#include "../include/LemmaListSerializer.h"
+#include "LemmaList.h"
+#include "LemmaUtil.h"
+#include "LemmaListDeserializer.h"
+#include "LemmaListSerializer.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

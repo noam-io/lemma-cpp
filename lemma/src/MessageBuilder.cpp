@@ -1,7 +1,7 @@
-#include "../include/MessageBuilder.h"
-#include "../jansson/jansson.h"
+#include "MessageBuilder.h"
+#include "jansson.h"
 extern "C" {
-#include "../include/LemmaListSerializer.h"
+#include "LemmaListSerializer.h"
 }
 
 MessageBuilder::MessageBuilder( char const * id) :

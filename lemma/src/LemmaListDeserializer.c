@@ -1,7 +1,7 @@
-#include "../include/LemmaList.h"
+#include "LemmaList.h"
 #include <stdlib.h>
 #include <string.h>
-#include "../jansson/jansson.h"
+#include "jansson.h"
 
 LemmaList* LemmaList_Dejsonify(json_t* json)
 {

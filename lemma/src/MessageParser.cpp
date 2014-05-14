@@ -1,6 +1,6 @@
-#include "../include/MessageParser.h"
-#include "../include/Event.h"
-#include "../jansson/jansson.h"
+#include "MessageParser.h"
+#include "Event.h"
+#include "jansson.h"
 
 Event * MessageParser::parse( char const * message )
 {

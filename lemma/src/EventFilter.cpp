@@ -1,7 +1,7 @@
 
-#include "../include/config.h"
-#include "../include/EventFilter.h"
-#include "../include/Event.h"
+#include "config.h"
+#include "EventFilter.h"
+#include "Event.h"
 #include <stdlib.h>
 #include <string.h>
 

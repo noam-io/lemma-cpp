@@ -1,23 +1,25 @@
-#include "../include/EventFilter.h"
-#include "../include/NoamServerLocator.h"
-#include "../include/MessageParser.h"
-#include "../include/MessageBuilder.h"
-#include "../include/LemmaApi.h"
-#include "../include/LemmaList.h"
+#include "EventFilter.h"
+#include "NoamServerLocator.h"
+#include "MessageParser.h"
+#include "MessageBuilder.h"
+#include "LemmaApi.h"
+#include "LemmaList.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "../sockets/TcpServer.h"
-#include "../sockets/TcpClient.h"
-#include "../sockets/UdpListener.h"
+#include "TcpServer.h"
+#include "TcpClient.h"
+#include "UdpListener.h"
 
 
-LemmaApi::LemmaApi( const char * lemmaId ) 
+LemmaApi::LemmaApi( const char * lemmaId )
   : udpListener(0)
   , lemmaId(lemmaId)
   , connected(false)
   , maestroIpAddress(0)
   , listenPort(-1)
   , broadcastPort(-1)
+
+//TODO: test and extract reconnect timeout
 {
 	reconnectTimeoutMS = 500;
 	server = new TcpServer(*this);
@@ -125,6 +127,7 @@ bool LemmaApi::maestroLocationKnown()
   return (maestroIpAddress != 0 && listenPort != -1);
 }
 
+//TODO:  Test return value
 bool LemmaApi::run()
 {
   if (!connected && _isTimeToReconnect())
@@ -146,6 +149,7 @@ bool LemmaApi::run()
   return connected;
 }
 
+//TODO: extract and test
 bool LemmaApi::_isTimeToReconnect(){
 	struct timeval tValCur;
 	gettimeofday(&tValCur, NULL);
@@ -167,9 +171,10 @@ void LemmaApi::sendEvent(char const * name, char* value)
   char * message = builder.buildEvent(name, value);
   sendMessageToClient(message);
   // buildEvent creates new char* so the message must be freed
+  //TODO: confirm this
   free(message);
 }
- 
+
 void LemmaApi::sendEvent(char const * name, int value)
 {
 	//printf("Send {'%s' : %d }\n", name, value);

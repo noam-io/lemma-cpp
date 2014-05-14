@@ -1,10 +1,10 @@
-#include "../include/LemmaList.h"
-#include "../include/LemmaListSerializer.h"
-#include "../include/LemmaUtil.h"
+#include "LemmaList.h"
+#include "LemmaListSerializer.h"
+#include "LemmaUtil.h"
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "../jansson/jansson.h"
+#include "jansson.h"
 
 
 json_t * LemmaList_Jsonify(LemmaList * self)

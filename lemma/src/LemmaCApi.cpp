@@ -1,10 +1,10 @@
 
 
-  #include "../include/LemmaApi.h"
+  #include "LemmaApi.h"
   #include <iostream>
 
 extern "C" {
-  #include "../include/LemmaCApi.h"
+  #include "LemmaCApi.h"
 
   void * lemmaCreate(char * lemmaId)
   {

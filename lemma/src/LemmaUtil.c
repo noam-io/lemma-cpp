@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdlib.h>
-#include "../include/LemmaUtil.h"
+#include "LemmaUtil.h"
 char * CLemma_BuyBuf(char const* buffer, int length)
 {
 	char * purchase = NULL;
