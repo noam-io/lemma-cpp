@@ -96,7 +96,7 @@ EventList::~EventList()
   {
 	free( (void *)e.list[i] );
   }
-  delete e.list;
+  delete[] e.list;
 }
 
 void EventList::set(size_t index, char const * value)

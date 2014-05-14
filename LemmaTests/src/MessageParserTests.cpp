@@ -5,7 +5,7 @@
 TEST_GROUP(MessageParser) {};
 
 TEST(MessageParser, parsingEventMessage) {
-  char * message = "[\"event\",\"some id\",\"a name\",\"a value\"]";
+  const char * message = "[\"event\",\"some id\",\"a name\",\"a value\"]";
   const Event* event = MessageParser::parse( message );
 
   STRCMP_EQUAL( "a name",  event->name() );
@@ -17,7 +17,7 @@ TEST(MessageParser, parsingEventMessage) {
 }
 
 TEST(MessageParser, parsingIntValue) {
-  char * message = "[\"event\",\"some id\",\"a name\",142]";
+  const char * message = "[\"event\",\"some id\",\"a name\",142]";
   const Event * event = MessageParser::parse( message );
 
   STRCMP_EQUAL( "a name",  event->name() );
@@ -28,7 +28,7 @@ TEST(MessageParser, parsingIntValue) {
 }
 
 TEST(MessageParser, parsingFloatValue) {
-  char * message = "[\"event\",\"some id\",\"a name\",14.10]";
+  const char * message = "[\"event\",\"some id\",\"a name\",14.10]";
   Event* event = MessageParser::parse( message );
 
   STRCMP_EQUAL( "a name",  event->name() );
@@ -39,18 +39,18 @@ TEST(MessageParser, parsingFloatValue) {
 
 TEST(MessageParser, parsesWithExtraDataHangingAround)
 {
-  char * message = "[\"event\",\"some id\",\"a name\",\"a value\"]000003";
+  const char * message = "[\"event\",\"some id\",\"a name\",\"a value\"]000003";
   Event * event = MessageParser::parse( message );
 
   STRCMP_EQUAL( "a name",  event->name() );
 
-  STRCMP_EQUAL( "a value", event->stringValue() );  
+  STRCMP_EQUAL( "a value", event->stringValue() );
   delete event;
 }
 
 TEST(MessageParser, parsesListOfStrings)
 {
-  char * message = "[\"event\",\"some id\",\"a name\",[\"a value 1\", \"a value 2\", \"a value 3\", \"a value 4\"]]";
+  const char * message = "[\"event\",\"some id\",\"a name\",[\"a value 1\", \"a value 2\", \"a value 3\", \"a value 4\"]]";
   Event * event = MessageParser::parse( message );
   CEvent const * c_event = &event->asStruct();
   CHECK_EQUAL( (int)4, (int)c_event->listLength );
