@@ -59,5 +59,18 @@ TEST(HostLocator, ReceivesPolo)
   HostLocator locator(udp, "guest123", "room5");
   locator.tryLocate();
   CHECK_TRUE(locator.isFound());
+  STRCMP_EQUAL("172.32.22.11", locator.ipAddress());
+  CHECK_EQUAL(8839, locator.port());
+}
 
+TEST(HostLocator, ReceivesJunk)
+{
+  TestUdp udp;
+  udp.readResult = true;
+  strcpy(udp.message, "[JUNK]");
+  HostLocator locator(udp, "guest123", "room5");
+  locator.tryLocate();
+  CHECK_FALSE(locator.isFound());
+  STRCMP_EQUAL("", locator.ipAddress());
+  CHECK_EQUAL(-1, locator.port());
 }

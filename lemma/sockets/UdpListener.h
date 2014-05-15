@@ -19,7 +19,6 @@ public:
 private:
 	SOCKET RecvSocket;
 	sockaddr_in SenderAddr;
-	char lastAddressBuf[24];
 };
 
 

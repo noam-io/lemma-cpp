@@ -15,7 +15,6 @@
 
 UdpListener::UdpListener()
 {
-	memset(lastAddressBuf, 0, 24);
 }
 
 bool UdpListener::startup()
