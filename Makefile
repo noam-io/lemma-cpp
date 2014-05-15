@@ -10,6 +10,9 @@ TARGET_LIB = \
 TEST_TARGET = \
 	$(COMPONENT_NAME)_tests
 
+VERIFICATION_TARGET = \
+	$(COMPONENT_NAME)_verification
+
 #--- Inputs ----#
 PROJECT_HOME_DIR = .
 CPPUTEST_HOME = cpputest
@@ -29,6 +32,9 @@ SRC_DIRS = \
 	lemma/src \
 	lemma/jansson
 
+SOCKET_SRC_DIRS = \
+	lemma/sockets
+
 #TEST_SRC_DIRS is a list of directories including
 # - A test main (AllTests.cpp by convention)
 # - OBJ files in these directories are included in the TEST_TARGET
@@ -38,6 +44,7 @@ TEST_SRC_DIRS = \
 	lemmatests/src \
 	lemmatests
 
+VERIFICATION_MAIN = verification/main.o
 #includes for all compiles
 INCLUDES =\
   -I.\
@@ -50,3 +57,13 @@ INCLUDES =\
 CPPUTEST_LDFLAGS = -lstdc++
 
 include $(CPPUTEST_HOME)/build/ComponentMakefile
+
+SOCKET_SRC = $(call get_src_from_dir_list, $(SOCKET_SRC_DIRS)) $(SOCKET_SRC_FILES)
+SOCKET_OBJ = $(call change_o_file_location, $(call src_to_o,$(SOCKET_SRC)))
+
+$(VERIFICATION_TARGET): $(PRODUCTION_CODE_START) $(SOCKET_OBJ) $(VERIFICATION_MAIN) $(TARGET_LIB) $(USER_LIBS) $(PRODUCTION_CODE_END) $(STDLIB_CODE_START)
+	echo $(SOCKET_OBJ)
+	$(SILENCE)echo Linking $@
+	$(SILENCE)$(LINK.o) -o $@ $^ $(LD_LIBRARIES)
+
+verify: $(VERIFICATION_TARGET)
