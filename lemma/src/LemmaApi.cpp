@@ -48,7 +48,7 @@ void LemmaApi::setLemmaId(const char* _lemmaId){
 	lemmaId = _lemmaId;
 }
 
-void LemmaApi::hear(char* eventName, event_handler_t handler)
+void LemmaApi::hear(const char* eventName, event_handler_t handler)
 {
   filter->add(eventName, handler);
 }
@@ -63,7 +63,7 @@ void LemmaApi::sendMessageToClient(const char * message)
     return;
   int result = 0;
   char length[7];
-  snprintf(length, 7, "%06d", strlen(message));
+  snprintf(length, 7, "%06d", (int)strlen(message));
   result += client->sendMessage(length, 6);
   result += client->sendMessage(message, strlen(message));
   if (result != 0)
@@ -84,7 +84,7 @@ bool LemmaApi::connectAndRegister()
 	return false;
 }
 
-void LemmaApi::begin(char* _maestroIpAddress, int maestroPort)
+void LemmaApi::begin(const char * _maestroIpAddress, int maestroPort)
 {
   maestroIpAddress = _maestroIpAddress;
   listenPort = maestroPort;
@@ -165,7 +165,7 @@ bool LemmaApi::_isTimeToReconnect(){
 	return false;
 }
 
-void LemmaApi::sendEvent(char const * name, char* value)
+void LemmaApi::sendEvent(char const * name, const char * value)
 {
   MessageBuilder builder(lemmaId);
   char * message = builder.buildEvent(name, value);

@@ -16,14 +16,14 @@ extern "C" {
     delete (LemmaApi*)self;
   }
 
-  
-  void lemmaHear(void * self, char * eventName, event_handler_t handler)
+
+  void lemmaHear(void * self, const char * eventName, event_handler_t handler)
   {
     LemmaApi* lemma = (LemmaApi*)self;
     lemma->hear(eventName, handler);
   }
 
-  void lemmaBegin(void * self, char* maestroIpAddress, int maestroPort)
+  void lemmaBegin(void * self, const char * maestroIpAddress, int maestroPort)
   {
     LemmaApi* lemma = (LemmaApi*)self;
     lemma->begin(maestroIpAddress, maestroPort);
@@ -41,7 +41,7 @@ extern "C" {
     lemma->run();
   }
 
-  void sendStringEvent(void * self, char const * name, char* value)
+  void sendStringEvent(void * self, char const * name, const char* value)
   {
     LemmaApi* lemma = (LemmaApi*)self;
     lemma->sendEvent(name, value);

@@ -13,7 +13,7 @@ public:
   EventFilter();
   ~EventFilter();
 
-  void add(char * eventName, event_handler_t callback);
+  void add(const char * eventName, event_handler_t callback);
   void handle(Event const *);
   int count();
   char const** events();

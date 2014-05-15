@@ -17,7 +17,7 @@ EventFilter::~EventFilter()
   }
 }
 
-void EventFilter::add(char * eventName, event_handler_t callback)
+void EventFilter::add(const char * eventName, event_handler_t callback)
 {
   int filterNumber = nFilters++;
   filters[filterNumber].eventName = (char *)malloc(strlen(eventName) + 1);

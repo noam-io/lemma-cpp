@@ -20,11 +20,11 @@ public:
   LemmaApi( const char * lemmaId );
   virtual ~LemmaApi();
 
-  void hear(char * eventName, event_handler_t handler);
-  void begin(char* maestroIpAddress, int maestroPort);
+  void hear(const char * eventName, event_handler_t handler);
+  void begin(const char* maestroIpAddress, int maestroPort);
   void begin(int broadcastPort);
   bool run(); //poll in program loop
-  void sendEvent(char const * name, char* value);
+  void sendEvent(char const * name, const char * value);
   void sendEvent(char const * name, int value);
   void sendEvent(char const * name, double value);
   void sendEvent(char const * name, struct LemmaList * list);
@@ -49,7 +49,7 @@ private:
 
   bool connected;
   bool connectAndRegister();
-  char* maestroIpAddress;
+  const char* maestroIpAddress;
   int listenPort;
   int broadcastPort;
   bool findMaestro();
