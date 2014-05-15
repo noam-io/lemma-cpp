@@ -79,3 +79,16 @@ char * MessageBuilder::buildRegister( int port, char const** hears, int hearsSiz
 	return string;
 }
 
+char * MessageBuilder::buildMarco(const char* roomName)
+{
+	json_t *array = json_array();
+	json_array_append_new(array, json_string("marco"));
+	json_array_append_new(array, json_string(lemmaId));
+	json_array_append_new(array, json_string(roomName));
+	json_array_append_new(array, json_string("cpp"));
+	json_array_append_new(array, json_string("1.1"));
+
+  char * string = json_dumps(array, 0);
+	json_decref(array);
+	return string;
+}

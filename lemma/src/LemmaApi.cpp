@@ -9,15 +9,16 @@
 #include "TcpServer.h"
 #include "TcpClient.h"
 #include "UdpListener.h"
+#include "config.h"
 
 
-LemmaApi::LemmaApi( const char * lemmaId )
+LemmaApi::LemmaApi( const char * guestName, const char * desiredRoomName)
   : udpListener(0)
-  , lemmaId(lemmaId)
+  , guestName(guestName)
+  , desiredRoomName(desiredRoomName)
   , connected(false)
   , maestroIpAddress(0)
   , listenPort(-1)
-  , broadcastPort(-1)
 
 //TODO: test and extract reconnect timeout
 {
@@ -41,11 +42,11 @@ LemmaApi::~LemmaApi()
 }
 
 const char* LemmaApi::getLemmaId(){
-	return lemmaId;
+	return guestName;
 }
 
-void LemmaApi::setLemmaId(const char* _lemmaId){
-	lemmaId = _lemmaId;
+void LemmaApi::setLemmaId(const char* _guestName){
+	guestName = _guestName;
 }
 
 void LemmaApi::hear(const char* eventName, event_handler_t handler)
@@ -75,7 +76,7 @@ bool LemmaApi::connectAndRegister()
 	if( 0 == client->connect(maestroIpAddress, listenPort))
 	{
 		connected = true;
-		MessageBuilder builder(lemmaId);
+		MessageBuilder builder(guestName);
 		char * message = builder.buildRegister(server->listeningPort(), filter->events(), filter->count(), 0, 0);
 		sendMessageToClient(message);
 		free(message);
@@ -91,14 +92,14 @@ void LemmaApi::begin(const char * _maestroIpAddress, int maestroPort)
   server->start();
 }
 
-void LemmaApi::begin(int broadcastPort)
+void LemmaApi::begin()
 {
 	if(udpListener != NULL)
 		free(udpListener);
 	udpListener = new UdpListener();
 	udpListener->startup();
 	udpListener->createSocket();
-	udpListener->bindTo(broadcastPort);
+	udpListener->bindTo(BROADCAST_PORT);
 	server->start();
 }
 
@@ -167,7 +168,7 @@ bool LemmaApi::_isTimeToReconnect(){
 
 void LemmaApi::sendEvent(char const * name, const char * value)
 {
-  MessageBuilder builder(lemmaId);
+  MessageBuilder builder(guestName);
   char * message = builder.buildEvent(name, value);
   sendMessageToClient(message);
   // buildEvent creates new char* so the message must be freed
@@ -178,14 +179,14 @@ void LemmaApi::sendEvent(char const * name, const char * value)
 void LemmaApi::sendEvent(char const * name, int value)
 {
 	//printf("Send {'%s' : %d }\n", name, value);
-  MessageBuilder builder(lemmaId);
+  MessageBuilder builder(guestName);
   char * message = builder.buildEvent(name, value);
   sendMessageToClient(message);
 }
 
 void LemmaApi::sendEvent(char const * name, double value)
 {
-  MessageBuilder builder(lemmaId);
+  MessageBuilder builder(guestName);
   char * message = builder.buildEvent(name, value);
   sendMessageToClient(message);
 }
@@ -193,7 +194,7 @@ void LemmaApi::sendEvent(char const * name, double value)
 
 void LemmaApi::sendEvent(char const * name, struct LemmaList * list)
 {
-  MessageBuilder builder(lemmaId);
+  MessageBuilder builder(guestName);
   char * message = builder.buildEvent(name, list);
   sendMessageToClient(message);
 }

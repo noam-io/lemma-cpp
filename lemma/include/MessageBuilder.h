@@ -17,6 +17,7 @@ class MessageBuilder
   char * buildEvent( char const * name, double value ) const;
   char * buildEvent( char const * name, struct LemmaList * value ) const;
   char * buildRegister( int port, char const** hears, int hearsSize, char const** plays, int playsSize ) const;
+  char * buildMarco(const char* roomName);
 };
 
 #endif

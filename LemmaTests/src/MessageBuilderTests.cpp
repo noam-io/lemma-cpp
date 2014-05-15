@@ -63,3 +63,11 @@ TEST(MessageBuilder, createRegistrationMessage) {
   free(actual);
 }
 
+TEST(MessageBuilder, createMarcoMessage) {
+  MessageBuilder builder("lemmaId");
+  char* actual = builder.buildMarco("roomName");
+  const char * expected = "[\"marco\", \"lemmaId\", \"roomName\", \"cpp\", \"1.1\"]";
+  CHECK_EQUAL(0, strcmp(expected, actual));
+  free(actual);
+}
+

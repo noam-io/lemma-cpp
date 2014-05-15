@@ -1,6 +1,34 @@
-#include "MessageParser.h"
 #include "Event.h"
+#include "MessageParser.h"
+#include "Polo.h"
 #include "jansson.h"
+
+
+Polo * MessageParser::parsePolo( char const * message )
+{
+  json_error_t error;
+  json_t * messageName;
+  json_t * roomName;
+  json_t * port;
+  json_t * json = json_loads(message, JSON_DISABLE_EOF_CHECK, &error);
+  if(json)
+  {
+    messageName = json_array_get( json, 0 );
+    if ( 0 == strcmp( json_string_value( messageName ), "polo") )
+    {
+      Polo * polo = new Polo();
+
+      roomName = json_array_get( json, 1 );
+      polo->setRoomName( json_string_value( roomName ) );
+
+      port = json_array_get( json, 2 );
+      polo->port = json_integer_value( port );
+      return polo;
+    }
+    json_decref( json );
+  }
+  return 0;
+}
 
 Event * MessageParser::parse( char const * message )
 {

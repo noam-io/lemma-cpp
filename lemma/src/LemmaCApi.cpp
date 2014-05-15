@@ -32,7 +32,7 @@ extern "C" {
   void lemmaBeginWithDiscovery(void * self, int broadcastPort)
   {
     LemmaApi* lemma = (LemmaApi*)self;
-    lemma->begin(broadcastPort);
+    lemma->begin();
   }
 
   void lemmaRun(void * self)

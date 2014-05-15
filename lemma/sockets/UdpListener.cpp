@@ -11,7 +11,6 @@
 
 
 #include "UdpListener.h"
-#include "utils.h"
 
 
 UdpListener::UdpListener()
@@ -75,7 +74,7 @@ bool UdpListener::attemptRead()
 		if(FD_ISSET(RecvSocket, &ReadFDs)){
 			messageLength = recvfrom(RecvSocket, message, MAX_BUFFER_SIZE, 0, (struct sockaddr *)&SenderAddr, &SenderAddrSize);
 			if(messageLength == -1 /* SOCKET_ERROR */){
-				printf("recvfrom filed with error %\n", errno);
+				printf("recvfrom filed with error %d\n", errno);
 			} else {
 				message[messageLength] = 0;
 				return true;
@@ -105,3 +104,7 @@ bool UdpListener::close()
 }
 
 
+bool UdpListener::broadcast(const char * message)
+{
+  return false;
+}

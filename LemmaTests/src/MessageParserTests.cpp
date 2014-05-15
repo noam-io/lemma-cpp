@@ -1,6 +1,7 @@
 #include "MessageParser.h"
 #include "event.h"
 #include "CppUTest/TestHarness.h"
+#include "Polo.h"
 
 TEST_GROUP(MessageParser) {};
 
@@ -61,3 +62,25 @@ TEST(MessageParser, parsesListOfStrings)
   delete event;
 }
 
+TEST(MessageParser, parsesPolo)
+{
+  const char * message = "[\"polo\", \"room554\", 8839]";
+  Polo * polo = MessageParser::parsePolo(message);
+  STRCMP_EQUAL("room554", polo->roomName);
+  CHECK_EQUAL(8839, polo->port);
+  delete polo;
+}
+
+TEST(MessageParser, handlerBadPolos)
+{
+  const char * message = "[Maestro@4534]";
+  Polo * polo = MessageParser::parsePolo(message);
+  CHECK_EQUAL(0, polo);
+}
+
+TEST(MessageParser, handlesOtherMessages)
+{
+  const char * message = "[\"event\", \"room554\", 8839]";
+  Polo * polo = MessageParser::parsePolo(message);
+  CHECK_EQUAL(0, polo);
+}

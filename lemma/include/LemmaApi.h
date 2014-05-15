@@ -17,12 +17,12 @@ struct LemmaList;
 class LemmaApi : public TcpReader
 {
 public:
-  LemmaApi( const char * lemmaId );
+  LemmaApi( const char * guestName, const char * desiredRoomName = "" );
   virtual ~LemmaApi();
 
   void hear(const char * eventName, event_handler_t handler);
   void begin(const char* maestroIpAddress, int maestroPort);
-  void begin(int broadcastPort);
+  void begin();
   bool run(); //poll in program loop
   void sendEvent(char const * name, const char * value);
   void sendEvent(char const * name, int value);
@@ -45,13 +45,13 @@ private:
   UdpListener * udpListener;
   NoamServerLocator * locator;
   struct timeval lastUpdate;
-  const char* lemmaId;
+  const char* guestName;
+  const char* desiredRoomName;
 
   bool connected;
   bool connectAndRegister();
   const char* maestroIpAddress;
   int listenPort;
-  int broadcastPort;
   bool findMaestro();
   bool maestroLocationKnown();
 

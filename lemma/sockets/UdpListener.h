@@ -2,20 +2,19 @@
 #define UDP_LISTENER_H
 
 #include "utils.h"
-const int MAX_BUFFER_SIZE = 1024;
+#include "Udp.h"
 
-class UdpListener
+class UdpListener : public Udp
 {
 public:
 	UdpListener();
 	bool startup();
 	bool createSocket();
 	bool bindTo(int port);
-	bool attemptRead();
-	bool close();
-	char* lastAddress();
-	int messageLength;
-	char message[MAX_BUFFER_SIZE];
+	virtual bool attemptRead();
+	virtual bool close();
+	virtual char* lastAddress();
+  virtual bool broadcast(const char * message);
 
 private:
 	SOCKET RecvSocket;
