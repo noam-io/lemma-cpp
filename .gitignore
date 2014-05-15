@@ -2,3 +2,5 @@
 *.o
 lib/
 objs/
+LemmaLib_tests
+LemmaLib_verification

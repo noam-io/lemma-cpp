@@ -103,7 +103,7 @@ void LemmaApi::begin(int broadcastPort)
 }
 
 
-bool LemmaApi::messageReceived(char* msg, size_t length)
+bool LemmaApi::messageReceived(const char* msg, size_t length)
 {
   Event * e = MessageParser::parse(msg);
   filter->handle(e);

@@ -28,7 +28,7 @@ void LemmaApiSerial::hear(char* eventName)
 bool LemmaApiSerial::messageReceived(char* msg, size_t length)
 {
 	char lengthStr[7];
-	snprintf(lengthStr, 7, "%06d", strlen(msg));
+	snprintf(lengthStr, 7, "%06lu", strlen(msg));
 	std::cout << "Received (" << length << "): " << lengthStr << msg << std::endl;
 	Serial->writeMessage(6, lengthStr);
 	Serial->writeMessage(length, msg);

@@ -4,7 +4,7 @@
 
 static const int SIZE_OF_LENGTH_FIELD = 6;
 
-static int payloadLength(char * data, int& bytesRemaining)
+static int payloadLength(const char * data, int& bytesRemaining)
 {
   int payloadSize = -1;
   if ( bytesRemaining >= SIZE_OF_LENGTH_FIELD ){
@@ -22,7 +22,7 @@ static bool payloadIsReady(int payloadSize, int bytesRemaining)
   return (payloadSize > 0 && payloadSize <= bytesRemaining);
 }
 
-int TcpReader::handle( char * data, size_t length, Connection& )
+int TcpReader::handle(const char * data, size_t length, Connection& )
 {
   int bytesRemaining = (int)length;
   int payloadSize = payloadLength( data, bytesRemaining );

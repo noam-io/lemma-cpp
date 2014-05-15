@@ -24,7 +24,7 @@ Event::Event( char const * name, char const * value )
 Event::Event( char const * name, long value )
 {
   strncpy( this->e.name, name, EVENT_STRING_MAX_LENGTH );
-  snprintf( this->e.stringValue, EVENT_STRING_MAX_LENGTH, "%d", value );
+  snprintf( this->e.stringValue, EVENT_STRING_MAX_LENGTH, "%ld", value );
   this->e.intValue = value;
   this->e.floatValue = (double) value;
 }

@@ -9,7 +9,7 @@ public:
   char msgReceived[1024];
   int messagesReceived;
   TestTcpReader() : messagesReceived(0) { }
-  virtual bool messageReceived(char* msg, size_t length)  {
+  virtual bool messageReceived(const char* msg, size_t length)  {
     memset(msgReceived, 0, 1024);
     messagesReceived++;
     strncpy(msgReceived, msg, length);

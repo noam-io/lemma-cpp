@@ -1,10 +1,7 @@
-
-
 #ifndef UDP_LISTENER_H
 #define UDP_LISTENER_H
 
 #include "utils.h"
-
 const int MAX_BUFFER_SIZE = 1024;
 
 class UdpListener

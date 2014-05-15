@@ -31,7 +31,7 @@ public:
   bool isConnected();
   const char* getLemmaId();
   void setLemmaId(const char* _lemmaId);
-  virtual bool messageReceived(char* msg, size_t length);
+  virtual bool messageReceived(const char* msg, size_t length);
   void sendMessageToClient(const char * message);
 
 private:
