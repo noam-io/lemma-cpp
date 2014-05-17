@@ -9,7 +9,7 @@ class UdpListener : public Udp
 public:
 	UdpListener( int broadcastPort );
 	bool createSocket();
-	bool bindTo(int port);
+	bool bind(int port = 0);
 	virtual bool attemptRead();
 	virtual bool close();
 	virtual char* lastAddress();

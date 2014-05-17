@@ -36,7 +36,7 @@ bool UdpListener::createSocket()
 }
 
 
-bool UdpListener::bindTo(int port)
+bool UdpListener::bind(int port)
 {
 	int iResult = 0;
 	sockaddr_in RecvAddr;
@@ -44,7 +44,7 @@ bool UdpListener::bindTo(int port)
 	RecvAddr.sin_port = htons(port);
 	RecvAddr.sin_addr.s_addr = htonl(INADDR_ANY);
 
-	iResult = bind(RecvSocket, (struct sockaddr*)&RecvAddr, sizeof(RecvAddr));
+	iResult = ::bind(RecvSocket, (struct sockaddr*)&RecvAddr, sizeof(RecvAddr));
 	if(iResult != 0){
 		printf("bind failed with error %d\n", errno);
 		return false;
@@ -65,7 +65,7 @@ bool UdpListener::attemptRead()
 	FD_SET(RecvSocket, &ReadFDs);
 	FD_SET(RecvSocket, &ExceptFDs);
 
-	if(select(0, &ReadFDs, 0, &ExceptFDs, &timeout) > 0){
+	if(select(RecvSocket + 1, &ReadFDs, 0, &ExceptFDs, &timeout) > 0){
 		if(FD_ISSET(RecvSocket, &ReadFDs)){
 			messageLength = recvfrom(RecvSocket, message, MAX_BUFFER_SIZE, 0, (struct sockaddr *)&SenderAddr, &SenderAddrSize);
 			if(messageLength == -1 /* SOCKET_ERROR */){

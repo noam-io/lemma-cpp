@@ -100,7 +100,7 @@ void LemmaApi::begin()
 		free(udpListener);
 	udpListener = new UdpListener(BROADCAST_SEND_PORT);
 	udpListener->createSocket();
-	udpListener->bindTo(1032);
+	udpListener->bind();
 
 	locator = new HostLocator(*udpListener, *marcoTicker, guestName, desiredRoomName);
 
