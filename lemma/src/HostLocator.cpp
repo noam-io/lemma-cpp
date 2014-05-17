@@ -3,16 +3,18 @@
 #include "HostLocator.h"
 #include "MessageBuilder.h"
 #include "MessageParser.h"
+#include "PeriodicTicker.h"
 #include "Polo.h"
 #include "Udp.h"
 
 
-HostLocator::HostLocator(Udp& _udp, const char * lemmaId, const char * roomName)
-   : roomName(roomName)
-   , lemmaId(lemmaId)
-   , udp(_udp)
-   , found(false)
-   , hostPort(-1)
+HostLocator::HostLocator( Udp& _udp, PeriodicTicker & ticker, const char * lemmaId, const char * roomName )
+   : roomName( roomName )
+   , lemmaId( lemmaId )
+   , udp( _udp )
+   , found( false )
+   , hostPort( -1 )
+   , ticker( ticker )
 {
   memset(hostIpAddress, 0, 24);
 }
@@ -23,8 +25,11 @@ void HostLocator::begin()
 
 void HostLocator::tryLocate()
 {
-  MessageBuilder messageBuilder(lemmaId);
-  udp.broadcast(messageBuilder.buildMarco(roomName));
+  if ( ticker.isItTime() )
+  {
+    MessageBuilder messageBuilder(lemmaId);
+    udp.broadcast(messageBuilder.buildMarco(roomName));
+  }
 
   if(udp.attemptRead())
   {
