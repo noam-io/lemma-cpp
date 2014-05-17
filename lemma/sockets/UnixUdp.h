@@ -4,10 +4,10 @@
 #include "utils.h"
 #include "Udp.h"
 
-class UdpListener : public Udp
+class UnixUdp : public Udp
 {
 public:
-	UdpListener( int broadcastPort );
+	UnixUdp( int broadcastPort );
 	bool createSocket();
 	bool bind(int port = 0);
 	virtual bool attemptRead();

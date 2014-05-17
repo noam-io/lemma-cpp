@@ -9,7 +9,7 @@
 class TcpClient;
 class TcpServer;
 class EventFilter;
-class UdpListener;
+class UnixUdp;
 class HostLocator;
 class PeriodicTicker;
 
@@ -43,7 +43,7 @@ private:
   EventFilter * filter;
   TcpServer * server;
   TcpClient * client;
-  UdpListener * udpListener;
+  UnixUdp * udpListener;
   PeriodicTicker * marcoTicker;
   PeriodicTicker * reconnectTicker;
   HostLocator * locator;

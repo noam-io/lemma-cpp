@@ -10,15 +10,15 @@
 #include <unistd.h>
 
 
-#include "UdpListener.h"
+#include "UnixUdp.h"
 
 
-UdpListener::UdpListener( int broadcastPort )
+UnixUdp::UnixUdp( int broadcastPort )
 : broadcastPort(broadcastPort)
 {
 }
 
-bool UdpListener::createSocket()
+bool UnixUdp::createSocket()
 {
 	RecvSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	if( RecvSocket == -1 ){
@@ -42,7 +42,7 @@ bool UdpListener::createSocket()
 }
 
 
-bool UdpListener::bind(int port)
+bool UnixUdp::bind(int port)
 {
 	int iResult = 0;
 	sockaddr_in RecvAddr;
@@ -59,7 +59,7 @@ bool UdpListener::bind(int port)
 }
 
 
-bool UdpListener::attemptRead()
+bool UnixUdp::attemptRead()
 {
 	unsigned int SenderAddrSize = sizeof(SenderAddr);
 	int iResult = 0;
@@ -88,12 +88,12 @@ bool UdpListener::attemptRead()
 }
 
 
-char* UdpListener::lastAddress()
+char* UnixUdp::lastAddress()
 {
 	return inet_ntoa(SenderAddr.sin_addr);
 }
 
-bool UdpListener::close()
+bool UnixUdp::close()
 {
 	int iResult = 0;
 	iResult = ::close( RecvSocket );
@@ -105,7 +105,7 @@ bool UdpListener::close()
 }
 
 
-bool UdpListener::broadcast(const char * message)
+bool UnixUdp::broadcast(const char * message)
 {
   struct sockaddr_in broadcastAddr;
 

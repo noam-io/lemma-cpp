@@ -10,7 +10,7 @@
 #include "PeriodicTicker.h"
 #include "TcpClient.h"
 #include "TcpServer.h"
-#include "UdpListener.h"
+#include "UnixUdp.h"
 #include "config.h"
 #include "UnixPeriodicTicker.h"
 
@@ -98,7 +98,7 @@ void LemmaApi::begin()
 {
 	if(udpListener != NULL)
 		free(udpListener);
-	udpListener = new UdpListener(BROADCAST_SEND_PORT);
+	udpListener = new UnixUdp(BROADCAST_SEND_PORT);
 	udpListener->createSocket();
 	udpListener->bind();
 
