@@ -1,16 +1,18 @@
-#include "EventFilter.h"
-#include "NoamServerLocator.h"
-#include "MessageParser.h"
-#include "MessageBuilder.h"
-#include "LemmaApi.h"
-#include "LemmaList.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "TcpServer.h"
+
+#include "EventFilter.h"
+#include "HostLocator.h"
+#include "LemmaApi.h"
+#include "LemmaList.h"
+#include "MessageBuilder.h"
+#include "MessageParser.h"
+#include "PeriodicTicker.h"
 #include "TcpClient.h"
+#include "TcpServer.h"
 #include "UdpListener.h"
 #include "config.h"
-
+#include "UnixPeriodicTicker.h"
 
 LemmaApi::LemmaApi( const char * guestName, const char * desiredRoomName)
   : udpListener(0)
@@ -26,7 +28,7 @@ LemmaApi::LemmaApi( const char * guestName, const char * desiredRoomName)
 	server = new TcpServer(*this);
 	client = new TcpClient();
 	filter = new EventFilter();
-	locator = new NoamServerLocator();
+  marcoTicker = new UnixPeriodicTicker(2008);
 	gettimeofday(&lastUpdate, NULL);
 }
 
@@ -96,10 +98,12 @@ void LemmaApi::begin()
 {
 	if(udpListener != NULL)
 		free(udpListener);
-	udpListener = new UdpListener();
-	udpListener->startup();
+	udpListener = new UdpListener(BROADCAST_SEND_PORT);
 	udpListener->createSocket();
-	udpListener->bindTo(BROADCAST_PORT);
+	udpListener->bindTo(1032);
+
+	locator = new HostLocator(*udpListener, *marcoTicker, guestName, desiredRoomName);
+
 	server->start();
 }
 
@@ -112,33 +116,16 @@ bool LemmaApi::messageReceived(const char* msg, size_t length)
   return true;
 }
 
-bool LemmaApi::findMaestro()
-{
-  if(udpListener->attemptRead())
-  {
-    maestroIpAddress = udpListener->lastAddress();
-    listenPort = locator->parsePort(udpListener->message);
-    return (listenPort != -1);
-  }
-  return false;
-}
-
-bool LemmaApi::maestroLocationKnown()
-{
-  return (maestroIpAddress != 0 && listenPort != -1);
-}
-
 //TODO:  Test return value
 bool LemmaApi::run()
 {
   if (!connected && _isTimeToReconnect())
   {
-    if (udpListener != 0)
+    locator->tryLocate();
+    if (locator->isFound())
     {
-      findMaestro();
-    }
-    if (maestroLocationKnown())
-    {
+      maestroIpAddress = locator->ipAddress();
+      listenPort = locator->port();
       connectAndRegister();
     }
   }

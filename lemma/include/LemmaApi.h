@@ -10,7 +10,8 @@ class TcpClient;
 class TcpServer;
 class EventFilter;
 class UdpListener;
-class NoamServerLocator;
+class HostLocator;
+class PeriodicTicker;
 
 struct LemmaList;
 
@@ -43,7 +44,9 @@ private:
   TcpServer * server;
   TcpClient * client;
   UdpListener * udpListener;
-  NoamServerLocator * locator;
+  PeriodicTicker * marcoTicker;
+  PeriodicTicker * reconnectTicker;
+  HostLocator * locator;
   struct timeval lastUpdate;
   const char* guestName;
   const char* desiredRoomName;
@@ -52,9 +55,6 @@ private:
   bool connectAndRegister();
   const char* maestroIpAddress;
   int listenPort;
-  bool findMaestro();
-  bool maestroLocationKnown();
-
 
 };
 

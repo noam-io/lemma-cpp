@@ -1,7 +1,7 @@
 #include "LemmaApi.h"
 #include <iostream>
 
-LemmaApi lemma("cpp_verification");
+LemmaApi lemma("cpp_verification", "lemma_verification");
 
 void echoHandler(CEvent const * e)
 {
@@ -19,7 +19,7 @@ int main(int argc, const char* argv[])
 {
   lemma.hear("Echo", echoHandler);
   lemma.hear("PlusOne", plusOneHandler);
-  lemma.begin("127.0.0.1", 7733);
+  lemma.begin();
 
   int runs = 0;
   while(1)

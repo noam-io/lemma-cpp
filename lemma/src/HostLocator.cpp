@@ -23,16 +23,21 @@ void HostLocator::begin()
 {
 }
 
+#include <stdio.h>
 void HostLocator::tryLocate()
 {
   if ( ticker.isItTime() )
   {
+    printf("Broadcasting\n");
     MessageBuilder messageBuilder(lemmaId);
     udp.broadcast(messageBuilder.buildMarco(roomName));
   }
 
   if(udp.attemptRead())
   {
+    printf("Rxed ");
+    printf("%s", udp.message);
+    printf("\n");
     Polo* polo = MessageParser::parsePolo(udp.message);
     if (polo)
     {

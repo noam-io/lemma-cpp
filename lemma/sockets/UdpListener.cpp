@@ -1,25 +1,21 @@
-#include <string.h>
+#include <errno.h>
 #include <iostream>
+#include <netinet/in.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <sys/time.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <sys/ioctl.h>
-#include <stdio.h>
-#include <netinet/in.h>
-#include <errno.h>
 
 
 #include "UdpListener.h"
 
 
-UdpListener::UdpListener()
+UdpListener::UdpListener( int broadcastPort )
+: broadcastPort(broadcastPort)
 {
-}
-
-bool UdpListener::startup()
-{
-	return true;
 }
 
 bool UdpListener::createSocket()
@@ -82,6 +78,10 @@ bool UdpListener::attemptRead()
 			printf("Socket error");
 		}
 	}
+  else
+  {
+    printf(".");
+  }
 	return false;
 }
 
@@ -105,5 +105,33 @@ bool UdpListener::close()
 
 bool UdpListener::broadcast(const char * message)
 {
-  return false;
+  int sock = RecvSocket ;              /* Socket */
+  struct sockaddr_in broadcastAddr; /* Broadcast address */
+  int broadcastPermission;          /* Socket opt to set permission to broadcast */
+  unsigned int localIPLen;       /* Length of string to broadcast */
+
+
+  /* Set socket to allow broadcast */
+  broadcastPermission = 1;
+  if (setsockopt(sock, SOL_SOCKET, SO_BROADCAST, (void *) &broadcastPermission, sizeof(broadcastPermission)) < 0)
+  {
+    perror("setsockopt() failed");
+    return false;
+  }
+
+  /* Construct local address structure */
+  memset(&broadcastAddr, 0, sizeof(broadcastAddr));   /* Zero out structure */
+  broadcastAddr.sin_family = AF_INET;                 /* Internet address family */
+  broadcastAddr.sin_addr.s_addr = inet_addr("255.255.255.255");   /* Broadcast IP address */
+  broadcastAddr.sin_port = htons(broadcastPort);      /* Broadcast port */
+
+  /* Broadcast localIP in datagram to clients */
+  if (sendto(sock, message, strlen(message), 0, (struct sockaddr *)
+        &broadcastAddr, sizeof(broadcastAddr)) != strlen(message))
+  {
+    perror("sendto() sent a different number of bytes than expected");
+    return false;
+  }
+
+  return true;
 }

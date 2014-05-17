@@ -7,8 +7,7 @@
 class UdpListener : public Udp
 {
 public:
-	UdpListener();
-	bool startup();
+	UdpListener( int broadcastPort );
 	bool createSocket();
 	bool bindTo(int port);
 	virtual bool attemptRead();
@@ -19,6 +18,7 @@ public:
 private:
 	SOCKET RecvSocket;
 	sockaddr_in SenderAddr;
+  int broadcastPort;
 };
 
 
