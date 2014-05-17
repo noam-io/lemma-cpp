@@ -44,24 +44,24 @@ extern "C" {
   void sendStringEvent(void * self, char const * name, const char* value)
   {
     LemmaApi* lemma = (LemmaApi*)self;
-    lemma->sendEvent(name, value);
+    lemma->speak(name, value);
   }
 
   void sendIntEvent(void * self, char const * name, int value)
   {
     LemmaApi* lemma = (LemmaApi*)self;
-    lemma->sendEvent(name, value);
+    lemma->speak(name, value);
   }
 
   void sendDoubleEvent(void * self, char const * name, double value)
   {
     LemmaApi* lemma = (LemmaApi*)self;
-    lemma->sendEvent(name, value);
+    lemma->speak(name, value);
   }
 
   void sendListEvent(void * self, char const * name, LemmaList * list)
   {
     LemmaApi* lemma = (LemmaApi*)self;
-	lemma->sendEvent(name, list);
+	lemma->speak(name, list);
   }
   }

@@ -25,10 +25,10 @@ public:
   void begin(const char* maestroIpAddress, int maestroPort);
   void begin();
   bool run(); //poll in program loop
-  void sendEvent(char const * name, const char * value);
-  void sendEvent(char const * name, int value);
-  void sendEvent(char const * name, double value);
-  void sendEvent(char const * name, struct LemmaList * list);
+  void speak(char const * name, const char * value);
+  void speak(char const * name, int value);
+  void speak(char const * name, double value);
+  void speak(char const * name, struct LemmaList * list);
   bool isConnected();
   const char* getLemmaId();
   void setLemmaId(const char* _lemmaId);

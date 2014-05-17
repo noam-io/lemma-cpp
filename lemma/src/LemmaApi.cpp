@@ -153,7 +153,7 @@ bool LemmaApi::_isTimeToReconnect(){
 	return false;
 }
 
-void LemmaApi::sendEvent(char const * name, const char * value)
+void LemmaApi::speak(char const * name, const char * value)
 {
   MessageBuilder builder(guestName);
   char * message = builder.buildEvent(name, value);
@@ -163,7 +163,7 @@ void LemmaApi::sendEvent(char const * name, const char * value)
   free(message);
 }
 
-void LemmaApi::sendEvent(char const * name, int value)
+void LemmaApi::speak(char const * name, int value)
 {
 	//printf("Send {'%s' : %d }\n", name, value);
   MessageBuilder builder(guestName);
@@ -171,7 +171,7 @@ void LemmaApi::sendEvent(char const * name, int value)
   sendMessageToClient(message);
 }
 
-void LemmaApi::sendEvent(char const * name, double value)
+void LemmaApi::speak(char const * name, double value)
 {
   MessageBuilder builder(guestName);
   char * message = builder.buildEvent(name, value);
@@ -179,7 +179,7 @@ void LemmaApi::sendEvent(char const * name, double value)
 }
 
 
-void LemmaApi::sendEvent(char const * name, struct LemmaList * list)
+void LemmaApi::speak(char const * name, struct LemmaList * list)
 {
   MessageBuilder builder(guestName);
   char * message = builder.buildEvent(name, list);
