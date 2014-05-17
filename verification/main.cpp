@@ -6,13 +6,13 @@ LemmaApi lemma("cpp_verification", "lemma_verification");
 void echoHandler(CEvent const * e)
 {
   std::cout << e->name << " : " << e->stringValue << std::endl;
-  lemma.sendEvent("echoVerify", e->stringValue);
+  lemma.sendEvent("EchoVerify", e->stringValue);
 }
 
 void plusOneHandler(CEvent const * e)
 {
   std::cout << e->name << " : " << e->stringValue << std::endl;
-  lemma.sendEvent("plusOneVerify", (int)(e->intValue + 1));
+  lemma.sendEvent("PlusOneVerify", (int)(e->intValue + 1));
 }
 
 int main(int argc, const char* argv[])

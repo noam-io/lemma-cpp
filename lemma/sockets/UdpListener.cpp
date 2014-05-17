@@ -21,16 +21,22 @@ UdpListener::UdpListener( int broadcastPort )
 bool UdpListener::createSocket()
 {
 	RecvSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-	if(RecvSocket == -1 /* INVALID_SOCKET */){
-		printf("socket failed with error %d\n", errno);
+	if( RecvSocket == -1 ){
+		perror("socket creation failed");
 		return false;
 	}
 
+  //set non-blocking socket
 	u_long nNoBlock = 1;
 	ioctl(RecvSocket, FIONBIO, &nNoBlock);
 
+  //Reuse address (probably not needed anymore)
 	bool bOptVal = true;
 	setsockopt(RecvSocket, SOL_SOCKET, SO_REUSEADDR, (char*)&bOptVal, sizeof(bool));
+
+  //allow broadcasting on this socket
+  int broadcastPermission = 1;
+  setsockopt(RecvSocket, SOL_SOCKET, SO_BROADCAST, (void *) &broadcastPermission, sizeof(broadcastPermission));
 
 	return true;
 }
@@ -46,7 +52,7 @@ bool UdpListener::bind(int port)
 
 	iResult = ::bind(RecvSocket, (struct sockaddr*)&RecvAddr, sizeof(RecvAddr));
 	if(iResult != 0){
-		printf("bind failed with error %d\n", errno);
+		perror("failed to bind udp");
 		return false;
 	}
 	return true;
@@ -69,19 +75,15 @@ bool UdpListener::attemptRead()
 		if(FD_ISSET(RecvSocket, &ReadFDs)){
 			messageLength = recvfrom(RecvSocket, message, MAX_BUFFER_SIZE, 0, (struct sockaddr *)&SenderAddr, &SenderAddrSize);
 			if(messageLength == -1 /* SOCKET_ERROR */){
-				printf("recvfrom filed with error %d\n", errno);
+				perror("recvfrom failed");
 			} else {
 				message[messageLength] = 0;
 				return true;
 			}
 		} else if(FD_ISSET(RecvSocket, &ReadFDs)){
-			printf("Socket error");
+			perror("Socket error");
 		}
 	}
-  else
-  {
-    printf(".");
-  }
 	return false;
 }
 
@@ -94,9 +96,9 @@ char* UdpListener::lastAddress()
 bool UdpListener::close()
 {
 	int iResult = 0;
-	iResult = ::close(RecvSocket);
-	if(iResult == -1 /* SOCKET_ERROR */){
-		printf("closesocket failed with error %d\n", errno);
+	iResult = ::close( RecvSocket );
+	if( iResult == -1 ){
+		perror("closesocket failed");
 		return false;
 	}
 	return true;
@@ -105,28 +107,16 @@ bool UdpListener::close()
 
 bool UdpListener::broadcast(const char * message)
 {
-  int sock = RecvSocket ;              /* Socket */
-  struct sockaddr_in broadcastAddr; /* Broadcast address */
-  int broadcastPermission;          /* Socket opt to set permission to broadcast */
-  unsigned int localIPLen;       /* Length of string to broadcast */
+  struct sockaddr_in broadcastAddr;
 
+  memset(&broadcastAddr, 0, sizeof(broadcastAddr));
+  broadcastAddr.sin_family = AF_INET;
+  //TODO loop over all broadcast addresses on all interfaces if ifaddrs
+  //http://man7.org/linux/man-pages/man3/getifaddrs.3.html
+  broadcastAddr.sin_addr.s_addr = inet_addr("255.255.255.255");
+  broadcastAddr.sin_port = htons(broadcastPort);
 
-  /* Set socket to allow broadcast */
-  broadcastPermission = 1;
-  if (setsockopt(sock, SOL_SOCKET, SO_BROADCAST, (void *) &broadcastPermission, sizeof(broadcastPermission)) < 0)
-  {
-    perror("setsockopt() failed");
-    return false;
-  }
-
-  /* Construct local address structure */
-  memset(&broadcastAddr, 0, sizeof(broadcastAddr));   /* Zero out structure */
-  broadcastAddr.sin_family = AF_INET;                 /* Internet address family */
-  broadcastAddr.sin_addr.s_addr = inet_addr("255.255.255.255");   /* Broadcast IP address */
-  broadcastAddr.sin_port = htons(broadcastPort);      /* Broadcast port */
-
-  /* Broadcast localIP in datagram to clients */
-  if (sendto(sock, message, strlen(message), 0, (struct sockaddr *)
+  if (sendto(RecvSocket, message, strlen(message), 0, (struct sockaddr *)
         &broadcastAddr, sizeof(broadcastAddr)) != strlen(message))
   {
     perror("sendto() sent a different number of bytes than expected");
