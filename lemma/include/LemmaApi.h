@@ -29,17 +29,16 @@ public:
   void speak(char const * name, int value);
   void speak(char const * name, double value);
   void speak(char const * name, struct LemmaList * list);
-  bool isConnected();
   const char* getLemmaId();
   void setLemmaId(const char* _lemmaId);
+
+  bool isConnected();
   virtual bool messageReceived(const char* msg, size_t length);
   void sendMessageToClient(const char * message);
 
 private:
   LemmaApi & operator=(LemmaApi const &);
   LemmaApi(LemmaApi const &);
-  bool _isTimeToReconnect();
-  int reconnectTimeoutMS;
   EventFilter * filter;
   TcpServer * server;
   TcpClient * client;
@@ -47,7 +46,6 @@ private:
   PeriodicTicker * marcoTicker;
   PeriodicTicker * reconnectTicker;
   HostLocator * locator;
-  struct timeval lastUpdate;
   const char* guestName;
   const char* desiredRoomName;
 

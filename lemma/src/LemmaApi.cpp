@@ -10,8 +10,9 @@
 #include "PeriodicTicker.h"
 #include "TcpClient.h"
 #include "TcpServer.h"
-#include "UnixUdp.h"
 #include "config.h"
+
+#include "UnixUdp.h"
 #include "UnixPeriodicTicker.h"
 
 LemmaApi::LemmaApi( const char * guestName, const char * desiredRoomName)
@@ -21,15 +22,12 @@ LemmaApi::LemmaApi( const char * guestName, const char * desiredRoomName)
   , connected(false)
   , maestroIpAddress(0)
   , listenPort(-1)
-
-//TODO: test and extract reconnect timeout
 {
-	reconnectTimeoutMS = 500;
 	server = new TcpServer(*this);
 	client = new TcpClient();
 	filter = new EventFilter();
   marcoTicker = new UnixPeriodicTicker(2008);
-	gettimeofday(&lastUpdate, NULL);
+  reconnectTicker = new UnixPeriodicTicker(500);
 }
 
 
@@ -119,7 +117,7 @@ bool LemmaApi::messageReceived(const char* msg, size_t length)
 //TODO:  Test return value
 bool LemmaApi::run()
 {
-  if (!connected && _isTimeToReconnect())
+  if (!connected && reconnectTicker->isItTime())
   {
     locator->tryLocate();
     if (locator->isFound())
@@ -135,22 +133,6 @@ bool LemmaApi::run()
   }
 
   return connected;
-}
-
-//TODO: extract and test
-bool LemmaApi::_isTimeToReconnect(){
-	struct timeval tValCur;
-	gettimeofday(&tValCur, NULL);
-
-	long LastTime = lastUpdate.tv_sec * 1000000L + lastUpdate.tv_usec;
-	long CurrTime = tValCur.tv_sec * 1000000L + tValCur.tv_usec;
-
-	float elapsedMS = (CurrTime - LastTime) / 1000.0;
-	if(elapsedMS >= reconnectTimeoutMS){
-		gettimeofday(&lastUpdate, NULL);
-		return true;
-	}
-	return false;
 }
 
 void LemmaApi::speak(char const * name, const char * value)
