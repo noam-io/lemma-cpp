@@ -32,8 +32,8 @@ SRC_DIRS = \
 	lemma/src \
 	lemma/jansson
 
-SOCKET_SRC_DIRS = \
-	lemma/sockets
+PLATFORM_SRC_DIRS = \
+	lemma/platform/unix
 
 #TEST_SRC_DIRS is a list of directories including
 # - A test main (AllTests.cpp by convention)
@@ -49,7 +49,7 @@ VERIFICATION_MAIN = verification/main.o
 INCLUDES =\
   -I.\
   -Ilemma/include\
-  -Ilemma/sockets\
+  -Ilemma/platform/unix\
   -Ilemma/jansson\
   -I$(CPPUTEST_HOME)/include/
 
@@ -58,11 +58,11 @@ CPPUTEST_LDFLAGS = -lstdc++
 
 include $(CPPUTEST_HOME)/build/ComponentMakefile
 
-SOCKET_SRC = $(call get_src_from_dir_list, $(SOCKET_SRC_DIRS)) $(SOCKET_SRC_FILES)
-SOCKET_OBJ = $(call change_o_file_location, $(call src_to_o,$(SOCKET_SRC)))
+PLATFORM_SRC = $(call get_src_from_dir_list, $(PLATFORM_SRC_DIRS)) $(PLATFORM_SRC_FILES)
+PLATFORM_OBJ = $(call change_o_file_location, $(call src_to_o,$(PLATFORM_SRC)))
 
-$(VERIFICATION_TARGET): $(PRODUCTION_CODE_START) $(SOCKET_OBJ) $(VERIFICATION_MAIN) $(TARGET_LIB) $(USER_LIBS) $(PRODUCTION_CODE_END) $(STDLIB_CODE_START)
-	echo $(SOCKET_OBJ)
+$(VERIFICATION_TARGET): $(PRODUCTION_CODE_START) $(PLATFORM_OBJ) $(VERIFICATION_MAIN) $(TARGET_LIB) $(USER_LIBS) $(PRODUCTION_CODE_END) $(STDLIB_CODE_START)
+	echo $(PLATFORM_OBJ)
 	$(SILENCE)echo Linking $@
 	$(SILENCE)$(LINK.o) -o $@ $^ $(LD_LIBRARIES)
 
