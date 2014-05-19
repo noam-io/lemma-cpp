@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 
 #ifndef UTILS_H
 #define UTILS_H

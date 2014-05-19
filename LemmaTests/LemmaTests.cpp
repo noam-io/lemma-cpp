@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #include <iostream>
 #include "CppUTest/CommandLineTestRunner.h"
 #include "jansson.h"

@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #include "MessageBuilder.h"
 #include "jansson.h"
 extern "C" {

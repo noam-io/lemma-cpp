@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #include "NoamServerLocator.h"
 #include "CppUTest/TestHarness.h"
 

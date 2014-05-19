@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #include "LemmaList.h"
 #include "LemmaUtil.h"
 #include "LemmaListDeserializer.h"

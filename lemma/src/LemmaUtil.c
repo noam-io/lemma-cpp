@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #include <string.h>
 #include <stdlib.h>
 #include "LemmaUtil.h"

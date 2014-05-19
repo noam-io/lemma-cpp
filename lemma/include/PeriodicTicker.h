@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #ifndef PERIODIC_TICKER_H
 #define PERIODIC_TICKER_H
 class PeriodicTicker

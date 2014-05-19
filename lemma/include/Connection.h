@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 
 #ifndef CONNECTION_H
 #define CONNECTION_H

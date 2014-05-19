@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #define NAMESPACE_OPEN namespace {
 #define NAMESPACE_CLOSE }
 #define BROADCAST_LISTEN_PORT 1036

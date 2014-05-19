@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #ifndef MESSAGE_PARSER_H
 #define MESSAGE_PARSER_H
 

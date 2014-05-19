@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #ifndef LemmaList_Deserialize_H
 #define LemmaList_Deserialize_H
 

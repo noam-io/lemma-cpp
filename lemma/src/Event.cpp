@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #include "Event.h"
 #include <string.h>
 #include <stdio.h>

@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #ifndef TEST_TICKER_H
 #define TEST_TICKER_H
 

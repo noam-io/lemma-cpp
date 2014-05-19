@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #ifndef UNIX_PERIODIC_TICKER_H
 #define UNIX_PERIODIC_TICKER_H
 #include "PeriodicTicker.h"

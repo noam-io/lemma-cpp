@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #ifndef LemmaUTILS_H
 #define LemmaUTILS_H
 char * CLemma_BuyBuf(char const*, int);

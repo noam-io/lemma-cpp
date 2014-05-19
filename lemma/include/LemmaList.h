@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #ifndef D_LemmaList_H
 #define D_LemmaList_H
 

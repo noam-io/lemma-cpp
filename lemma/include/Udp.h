@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #ifndef UDP_H
 #define UDP_H
 const int MAX_BUFFER_SIZE = 1024;

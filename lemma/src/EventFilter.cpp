@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 
 #include "config.h"
 #include "EventFilter.h"

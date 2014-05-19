@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #ifndef TCP_SERVER_H
 #define TCP_SERVER_H
 

@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #include "CppUTest/TestHarness.h"
 #include "HostLocator.h"
 #include "udp.h"

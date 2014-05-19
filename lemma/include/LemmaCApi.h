@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #ifndef LEMMA_C_API_H
 #define LEMMA_C_API_H
 

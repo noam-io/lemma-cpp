@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #include "MessageParser.h"
 #include "event.h"
 #include "CppUTest/TestHarness.h"

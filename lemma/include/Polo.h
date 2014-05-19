@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #ifndef POLO_H
 #define POLO_H
 class Polo

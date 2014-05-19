@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #ifndef MESSAGE_BUILDER_H
 #define MESSAGE_BUILDER_H
 

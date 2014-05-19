@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #include "LemmaList.h"
 #include <stdlib.h>
 #include <string.h>

@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #ifndef TCPREADER_H
 #define TCPREADER_H
 

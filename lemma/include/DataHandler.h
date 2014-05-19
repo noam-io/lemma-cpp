@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #ifndef DATA_HANDLER_H
 #define DATA_HANDLER_H
 

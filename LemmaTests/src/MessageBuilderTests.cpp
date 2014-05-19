@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #include "MessageBuilder.h"
 #include <String.h>
 #include "CppUTest/TestHarness.h"

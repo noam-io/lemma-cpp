@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #ifndef EVENT_HANDLER_H
 #define EVENT_HANDLER_H
 

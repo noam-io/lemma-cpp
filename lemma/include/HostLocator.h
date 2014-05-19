@@ -1,3 +1,5 @@
+//Copyright (c) 2014, IDEO 
+
 #ifndef HOST_LOCATOR_H
 #define HOST_LOCATOR_H
 class Udp;
