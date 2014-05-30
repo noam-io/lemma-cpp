@@ -1,6 +1,7 @@
+
 language: cpp
 compiler:
   - clang
   - gcc
 before_script:
-  - 'cd cpputest && make'
+  - cd cpputest && make
