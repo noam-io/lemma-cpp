@@ -1,6 +1,7 @@
 #Set this to @ to keep the makefile quiet
 SILENCE = @
 CXX=g++
+RANLIB = @echo
 
 #---- Outputs ----#
 COMPONENT_NAME = LemmaLib
