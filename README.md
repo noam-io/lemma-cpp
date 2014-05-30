@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/noam-io/lemma-cpp.svg?branch=master)](https://travis-ci.org/noam-io/lemma-cpp)
 
 Noam Lemma - C++ Arm Linux
 ==========================
