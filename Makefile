@@ -1,6 +1,6 @@
 #Set this to @ to keep the makefile quiet
 #SILENCE = @
-CXX=g++
+#CXX=g++
 
 #---- Outputs ----#
 COMPONENT_NAME = LemmaLib
@@ -17,12 +17,8 @@ VERIFICATION_TARGET = \
 PROJECT_HOME_DIR = .
 CPPUTEST_HOME = cpputest
 CPPUNIT_HOME = ../cppunit
-CPP_PLATFORM = Gcc
-
-#CFLAGS are set to override malloc and free to get memory leak detection in C programs
-CFLAGS = -Dmalloc=cpputest_malloc -Dfree=cpputest_free
-CPPFLAGS =
-#GCOVFLAGS = -fprofile-arcs -ftest-coverage
+CPPUTEST_CXXFLAGS  = -std=c++11 -Wno-error=unused-function
+CPPUTEST_WARNINGFLAGS =  -Wshadow -Wswitch-default -Wswitch-enum -Wconversion
 
 #SRC_DIRS is a list of source directories that make up the target library
 #If test files are in these directories, their IMPORT_TEST_GROUPs need
@@ -54,9 +50,9 @@ INCLUDES =\
   -I$(CPPUTEST_HOME)/include/
 
 #Flags to pass to ld
-CPPUTEST_LDFLAGS = -lstdc++
+#CPPUTEST_LDFLAGS = -lstdc++
 
-include $(CPPUTEST_HOME)/build/ComponentMakefile
+include $(CPPUTEST_HOME)/build/MakefileWorker.mk
 
 PLATFORM_SRC = $(call get_src_from_dir_list, $(PLATFORM_SRC_DIRS)) $(PLATFORM_SRC_FILES)
 PLATFORM_OBJ = $(call change_o_file_location, $(call src_to_o,$(PLATFORM_SRC)))

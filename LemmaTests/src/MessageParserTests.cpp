@@ -1,4 +1,4 @@
-//Copyright (c) 2014, IDEO 
+//Copyright (c) 2014, IDEO
 
 #include "MessageParser.h"
 #include "event.h"
@@ -36,7 +36,7 @@ TEST(MessageParser, parsingFloatValue) {
 
   STRCMP_EQUAL( "a name",  event->name() );
   CHECK( 14 == event->intValue() );
-  CHECK(abs(event->floatValue() - 14.10) < 0.01f );
+  DOUBLES_EQUAL(event->floatValue(),  14.10, 0.01 );
   delete event;
 }
 

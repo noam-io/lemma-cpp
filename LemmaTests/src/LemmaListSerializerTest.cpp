@@ -1,8 +1,7 @@
-//Copyright (c) 2014, IDEO 
+//Copyright (c) 2014, IDEO
 
 #include <stdlib.h>
 #include <string.h>
-#include <iostream>
 
 
 extern "C"

@@ -1,9 +1,5 @@
-//Copyright (c) 2014, IDEO 
-
-
-
-  #include "LemmaApi.h"
-  #include <iostream>
+//Copyright (c) 2014, IDEO
+#include "LemmaApi.h"
 
 extern "C" {
   #include "LemmaCApi.h"

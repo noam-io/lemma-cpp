@@ -1,4 +1,4 @@
-//Copyright (c) 2014, IDEO 
+//Copyright (c) 2014, IDEO
 
 #include "CppUTest/TestHarness.h"
 #include "TcpReader.h"
@@ -69,7 +69,6 @@ TEST(TcpReader, HandlesIncompleteLength)
 TEST(TcpReader, HandlesIncompleteLengthInSecondMessage)
 {
   char msg[] = "000002ab001";
-  char after[] = "00abcds";
   CHECK_EQUAL(8, reader.handle(msg, 11, conn));
   CHECK_EQUAL(1, reader.messagesReceived);
   STRCMP_EQUAL("ab", reader.msgReceived);
