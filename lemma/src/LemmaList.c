@@ -1,4 +1,4 @@
-//Copyright (c) 2014, IDEO 
+//Copyright (c) 2014, IDEO
 
 #include "LemmaList.h"
 #include "LemmaUtil.h"
@@ -19,7 +19,7 @@ struct Node {
 
 struct LemmaList {
 	int length;
-	Node* head; 
+	Node* head;
 	Node* tail;
 };
 
@@ -38,12 +38,12 @@ void LemmaList_Destroy(LemmaList* self)
 	Node * next;
 	for(node = self->head; node; node = next)
 	{
-		if (node->string) 
+		if (node->string)
 			free(node->string);
-		
+
 		if (node->list)
 			LemmaList_Destroy(node->list);
-			
+
 		next = node->next;
 		free(node);
 	}
@@ -66,6 +66,7 @@ void LemmaList_AddString(LemmaList* self, char const* string)
 {
 	LemmaList_AddBuffer(self, string, string ? (int)strlen(string) : 0);
 }
+
 
 void LemmaList_AddList(LemmaList* self, LemmaList* element)
 {
@@ -144,16 +145,16 @@ static char * parseHashCell(char ** cellStart)
 	char * buf = (char*)malloc(length + 1);
 	strncpy(buf, cellValue, length);
 	buf[length] = 0;
-	
+
 	*cellStart = strstr(cellStop + strlen("<td>"), "<td>");
-	
+
 	return buf;
 }
 
 static LemmaList* parseHashEntry(char * row)
 {
 		char * hashKey;
-		char * hashValue; 
+		char * hashValue;
 		char * cellStart;
 
 		LemmaList * element = LemmaList_Create();
@@ -167,15 +168,15 @@ static LemmaList* parseHashEntry(char * row)
 		hashValue = parseHashCell(&cellStart);
 		LemmaList_AddString(element, hashValue);
 		free(hashValue);
-		
+
 		return element;
 }
 
 static LemmaList* LemmaList_deserializeHash(char * serializedHash)
-{	
+{
   LemmaList *element;
   LemmaList *hash = LemmaList_Create();
-  
+
   char * row = strstr(serializedHash, "<tr>");
   while (row != NULL)
 	{
@@ -183,7 +184,7 @@ static LemmaList* LemmaList_deserializeHash(char * serializedHash)
 		LemmaList_AddList(hash, element);
 		row = strstr(row + strlen("<tr>"), "<tr>");
 	}
-  return hash;	
+  return hash;
 }
 
 LemmaList* LemmaList_GetHashAt(LemmaList* self, int index)
@@ -214,7 +215,7 @@ static void insertNode(LemmaList* self, Node* node)
 	{
 		self->tail->next = node;
 	}
-	self->tail = node;	
+	self->tail = node;
 	self->length++;
 }
 
@@ -248,9 +249,9 @@ char* LemmaList_ToString(LemmaList* self) {
 		}
 		if (i != (length-1)) {
 			strncat(buf, ", ", 128);
-		}	
+		}
 	}
 	strncat(buf, "]", 128);
 	strncpy(string, buf, 128);
-	return string;	
+	return string;
 }

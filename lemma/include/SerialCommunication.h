@@ -1,4 +1,4 @@
-//Copyright (c) 2014, IDEO 
+//Copyright (c) 2014, IDEO
 
 /*
  * SerialCommunication.h
@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <iostream>
 #include <fcntl.h>
 #include <errno.h>
 #include <termios.h>

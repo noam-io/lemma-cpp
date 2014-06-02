@@ -1,4 +1,4 @@
-//Copyright (c) 2014, IDEO 
+//Copyright (c) 2014, IDEO
 
 /*
  * LemmaApiSerial.cpp
@@ -8,7 +8,6 @@
  */
 
 #include "LemmaApiSerial.h"
-#include <iostream>
 
 LemmaApiSerial::LemmaApiSerial(const char* lemmaId, const char* device, speed_t baud) : LemmaApi(lemmaId){
 	Serial = new SerialCommunication(device, baud);
@@ -31,7 +30,6 @@ bool LemmaApiSerial::messageReceived(char* msg, size_t length)
 {
 	char lengthStr[7];
 	snprintf(lengthStr, 7, "%06lu", strlen(msg));
-	std::cout << "Received (" << length << "): " << lengthStr << msg << std::endl;
 	Serial->writeMessage(6, lengthStr);
 	Serial->writeMessage(length, msg);
 	Serial->writeMessage(1, "\n");

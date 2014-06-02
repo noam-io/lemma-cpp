@@ -1,4 +1,4 @@
-//Copyright (c) 2014, IDEO 
+//Copyright (c) 2014, IDEO
 
 /*
  * SerialCommunication.cpp
@@ -31,7 +31,6 @@ bool SerialCommunication::start(){
 	fcntl(fd, F_SETFL, 0);
 	tcgetattr(fd, &oldkey);
 	if(tcgetattr(fd, &tty) != 0){
-		std::cout << "Error getting tty attributes." << std::endl;
 		return false;
 	}
 
@@ -56,7 +55,6 @@ bool SerialCommunication::start(){
 	tcflush(fd, TCIFLUSH);
 
 	if(tcsetattr(fd, TCSANOW, &tty) != 0){
-		std::cout << "Error setting tty attributes." << std::endl;
 		return false;
 	}
 	isOpen = true;
