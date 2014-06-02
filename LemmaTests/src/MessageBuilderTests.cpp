@@ -1,4 +1,4 @@
-//Copyright (c) 2014, IDEO 
+//Copyright (c) 2014, IDEO
 
 #include "MessageBuilder.h"
 #include <String.h>
@@ -17,7 +17,7 @@ TEST(MessageBuilder, createsStringMessage) {
   char * actual = builder.buildEvent("speed", "65");
 
   CHECK(strcmp(actual, expected) == 0);
-  free(actual);
+  MessageBuilder::freeMessage(actual);
 }
 
 TEST(MessageBuilder, createsIntMessage) {
@@ -27,7 +27,7 @@ TEST(MessageBuilder, createsIntMessage) {
   char * actual = builder.buildEvent("speed", 65);
 
   CHECK(strcmp(actual, expected) == 0);
-  free(actual);
+  MessageBuilder::freeMessage(actual);
 }
 
 TEST(MessageBuilder, createsFloatMessage) {
@@ -37,7 +37,7 @@ TEST(MessageBuilder, createsFloatMessage) {
   char * actual = builder.buildEvent("speed", 23.25);
 
   CHECK(strcmp(actual, expected) == 0);
-  free(actual);
+  MessageBuilder::freeMessage(actual);
 }
 
 TEST(MessageBuilder, createsListMessage) {
@@ -49,7 +49,8 @@ TEST(MessageBuilder, createsListMessage) {
   char * actual = builder.buildEvent("speed", list);
 
   CHECK(strcmp(actual, expected) == 0);
-  free(actual);
+  MessageBuilder::freeMessage(actual);
+  LemmaList_Destroy(list);
 }
 
 TEST(MessageBuilder, createRegistrationMessage) {
@@ -62,7 +63,7 @@ TEST(MessageBuilder, createRegistrationMessage) {
   char* actual = builder.buildRegister(123, hears, 2, plays, 3);
 
   CHECK_EQUAL(0, strcmp(actual, expected));
-  free(actual);
+  MessageBuilder::freeMessage(actual);
 }
 
 TEST(MessageBuilder, createMarcoMessage) {
@@ -70,6 +71,6 @@ TEST(MessageBuilder, createMarcoMessage) {
   char* actual = builder.buildMarco("roomName");
   const char * expected = "[\"marco\", \"lemmaId\", \"roomName\", \"cpp\", \"1.1\"]";
   CHECK_EQUAL(0, strcmp(expected, actual));
-  free(actual);
+  MessageBuilder::freeMessage(actual);
 }
 

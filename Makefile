@@ -1,5 +1,5 @@
 #Set this to @ to keep the makefile quiet
-#SILENCE = @
+SILENCE = @
 #CXX=g++
 
 #---- Outputs ----#
@@ -15,11 +15,12 @@ VERIFICATION_TARGET = \
 
 #--- Inputs ----#
 PROJECT_HOME_DIR = .
-CPPUTEST_HOME = cpputest
-CPPUNIT_HOME = ../cppunit
+CPPUTEST_HOME = cpputest2
 CPPUTEST_CXXFLAGS  = -std=c++11 -Wno-error=unused-function
 CPPUTEST_WARNINGFLAGS =  -Wshadow -Wswitch-default -Wswitch-enum -Wconversion
 
+CXXFLAGS = -include $(CPPUTEST_HOME)/include/CppUTest/MemoryLeakDetectorNewMacros.h -include $(CPPUTEST_HOME)/include/CppUTest/MemoryLeakDetectorMallocMacros.h
+CFLAGS = -include $(CPPUTEST_HOME)/include/CppUTest/MemoryLeakDetectorMallocMacros.h
 #SRC_DIRS is a list of source directories that make up the target library
 #If test files are in these directories, their IMPORT_TEST_GROUPs need
 #to be included in main to force them to be linked in.  By convention

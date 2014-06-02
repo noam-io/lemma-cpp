@@ -1,4 +1,4 @@
-//Copyright (c) 2014, IDEO 
+//Copyright (c) 2014, IDEO
 
 #include "LemmaList.h"
 #include "LemmaListSerializer.h"
@@ -39,5 +39,5 @@ char* LemmaList_Serialize(LemmaList* self)
 void LemmaList_Release(char *serializedResults)
 {
   if(serializedResults)
-    free(serializedResults);
+    jsonp_free(serializedResults);
 }

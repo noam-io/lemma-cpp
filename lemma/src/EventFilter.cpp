@@ -1,4 +1,4 @@
-//Copyright (c) 2014, IDEO 
+//Copyright (c) 2014, IDEO
 
 
 #include "config.h"
@@ -15,18 +15,20 @@ EventFilter::~EventFilter()
 {
   for(int i = 0; i < nFilters; i++)
   {
-    free(filters[i].eventName);
+    delete[] filters[i].eventName;
   }
 }
 
 void EventFilter::add(const char * eventName, event_handler_t callback)
 {
-  int filterNumber = nFilters++;
-  filters[filterNumber].eventName = (char *)malloc(strlen(eventName) + 1);
-  strcpy(filters[filterNumber].eventName, eventName);
-  filters[filterNumber].callback = callback;
-
-  eventNames[filterNumber] = filters[filterNumber].eventName;
+  if (nFilters < MAX_NUM_EVENTS)
+  {
+    int filterNumber = nFilters++;
+    filters[filterNumber].eventName = new char[strlen(eventName) + 1];
+    strcpy(filters[filterNumber].eventName, eventName);
+    filters[filterNumber].callback = callback;
+    eventNames[filterNumber] = filters[filterNumber].eventName;
+  }
 }
 
 void EventFilter::handle(Event const * event)

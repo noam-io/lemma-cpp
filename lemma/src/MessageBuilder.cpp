@@ -1,9 +1,10 @@
-//Copyright (c) 2014, IDEO 
+//Copyright (c) 2014, IDEO
 
 #include "MessageBuilder.h"
 #include "jansson.h"
 extern "C" {
 #include "LemmaListSerializer.h"
+void jsonp_free(void *ptr);
 }
 
 MessageBuilder::MessageBuilder( char const * id) :
@@ -93,4 +94,9 @@ char * MessageBuilder::buildMarco(const char* roomName)
   char * string = json_dumps(array, 0);
 	json_decref(array);
 	return string;
+}
+
+void MessageBuilder::freeMessage(char * message)
+{
+  jsonp_free(message);
 }

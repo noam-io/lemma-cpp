@@ -80,8 +80,8 @@ TEST(LemmaListSerializer, canCopyAList)
 	STRCMP_EQUAL(serialCopy, serialLemmaList);
 
 	LemmaList_Destroy(copy);
-	free(serialLemmaList);
-	free(serialCopy);
+	LemmaList_Release(serialLemmaList);
+	LemmaList_Release(serialCopy);
 
 }
 

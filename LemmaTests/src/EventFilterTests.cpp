@@ -1,4 +1,4 @@
-//Copyright (c) 2014, IDEO 
+//Copyright (c) 2014, IDEO
 
 #include "event.h"
 #include "EventFilter.h"
@@ -50,5 +50,16 @@ TEST(EventFilter, getsListOfEvents) {
   char const** events = filter.events();
   STRCMP_EQUAL( events[0], "speed" );
   STRCMP_EQUAL( events[1], "rpms" );
+}
+
+TEST(EventFilter, maxesOutFilters) {
+  EventFilter filter;
+  for( int i = 0; i < MAX_NUM_EVENTS; i++ )
+  {
+    filter.add("speed", testHandler);
+  }
+
+  filter.add("speed65", testHandler);
+  CHECK_EQUAL(MAX_NUM_EVENTS, filter.count());
 }
 

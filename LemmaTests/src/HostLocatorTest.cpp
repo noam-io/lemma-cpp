@@ -1,6 +1,7 @@
-//Copyright (c) 2014, IDEO 
+//Copyright (c) 2014, IDEO
 
 #include "CppUTest/TestHarness.h"
+#include "CppUTest/MemoryLeakDetectorMallocMacros.h"
 #include "HostLocator.h"
 #include "udp.h"
 #include "MessageBuilder.h"
@@ -67,7 +68,7 @@ TEST(HostLocator, SendsMarco)
   char* marco = builder.buildMarco("room5");
   STRCMP_EQUAL(marco, udp->broadcastedMessage);
   CHECK_FALSE(locator->isFound());
-  free(marco);
+  MessageBuilder::freeMessage(marco);
 }
 
 TEST(HostLocator, WaitsToSendMarco)

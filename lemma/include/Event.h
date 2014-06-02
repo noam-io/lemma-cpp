@@ -1,4 +1,4 @@
-//Copyright (c) 2014, IDEO 
+//Copyright (c) 2014, IDEO
 
 #ifndef EVENT_H
 #define EVENT_H
@@ -16,7 +16,7 @@ public:
   char const ** list() const;
 
   Event();
-  virtual ~Event() {};
+  virtual ~Event();
   Event( char const * name, char const * value );
   Event( char const * name, long value );
   Event( char const * name, double value );
@@ -36,7 +36,7 @@ class EventList : public Event
 {
 public:
   EventList( char const * name, size_t listLength );
-  ~EventList();
+  virtual ~EventList();
   void set( size_t index, char const * value );
   char const * get( size_t index ) const;
 };

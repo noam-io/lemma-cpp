@@ -1,4 +1,4 @@
-//Copyright (c) 2014, IDEO 
+//Copyright (c) 2014, IDEO
 
 #ifndef MESSAGE_BUILDER_H
 #define MESSAGE_BUILDER_H
@@ -20,6 +20,7 @@ class MessageBuilder
   char * buildEvent( char const * name, struct LemmaList * value ) const;
   char * buildRegister( int port, char const** hears, int hearsSize, char const** plays, int playsSize ) const;
   char * buildMarco(const char* roomName);
+  void static freeMessage(char *);
 };
 
 #endif

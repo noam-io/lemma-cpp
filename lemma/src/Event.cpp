@@ -1,4 +1,4 @@
-//Copyright (c) 2014, IDEO 
+//Copyright (c) 2014, IDEO
 
 #include "Event.h"
 #include <string.h>
@@ -42,6 +42,10 @@ Event::Event( char const * name, double value )
 Event::Event( Event const & other)
 {
 }
+
+Event::~Event()
+{
+};
 
 Event & Event::operator=(Event const & other)
 {
@@ -94,20 +98,19 @@ EventList::EventList(char const* name, size_t listLength)
 
 EventList::~EventList()
 {
-  for ( size_t i = 0; i < e.listLength; i-- )
+  for ( size_t i = 0; i < e.listLength; i++ )
   {
-	free( (void *)e.list[i] );
+	  delete[] e.list[i];
   }
   delete[] e.list;
 }
 
 void EventList::set(size_t index, char const * value)
 {
-  char * newString = (char*)malloc(strlen(value) + 1);
+  char * newString = new char[strlen(value) + 1];
   strcpy(newString, value);
-//TODO test condition
   if(e.list[index] != NULL){
-	  free((void*)e.list[index]);
+	  delete[] e.list[index];
   }
   e.list[index] = newString;
 }
