@@ -4,4 +4,4 @@ compiler:
   - clang
   - gcc
 before_script:
-  - (cd cpputest2 && ./configure && make && make install)
+  - (cd cpputest2 && ./configure && make)
