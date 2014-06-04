@@ -94,6 +94,7 @@ EventList::EventList(char const* name, size_t listLength)
 {
   e.listLength = listLength;
   e.list = (const char **)new char*[listLength];
+  memset(e.list, sizeof(char*) * listLength, 0);
 }
 
 EventList::~EventList()
