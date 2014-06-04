@@ -1,6 +1,6 @@
 //Copyright (c) 2014, IDEO
 
-#include "event.h"
+#include "Event.h"
 #include "EventFilter.h"
 #include "CppUTest/TestHarness.h"
 

@@ -17,14 +17,14 @@ UnixPeriodicTicker::~UnixPeriodicTicker()
 
 bool UnixPeriodicTicker::isItTime(){
 	struct timeval tValCur;
-	gettimeofday(&tValCur, NULL);
+	gettimeofday(&tValCur, 0);
 
 	long LastTime = lastUpdate->tv_sec * 1000000L + lastUpdate->tv_usec;
 	long CurrTime = tValCur.tv_sec * 1000000L + tValCur.tv_usec;
 
 	float elapsedMS = (CurrTime - LastTime) / 1000.0;
 	if(elapsedMS >= periodMs){
-		gettimeofday(lastUpdate, NULL);
+		gettimeofday(lastUpdate, 0);
 		return true;
 	}
 	return false;

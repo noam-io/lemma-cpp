@@ -2,6 +2,9 @@
 
 #ifndef HOST_LOCATOR_H
 #define HOST_LOCATOR_H
+
+#include <string.h>
+
 class Udp;
 class PeriodicTicker;
 
