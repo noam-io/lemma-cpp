@@ -113,7 +113,6 @@ void EventList::set(size_t index, char const * value)
 {
   char * newString = new char[strlen(value) + 1];
   strcpy(newString, value);
-  printf("%x\n", e.list[index]);
   if(e.list[index] != NULL){
 	  delete[] e.list[index];
   }
