@@ -52,9 +52,16 @@ TEST(MessageParser, parsesWithExtraDataHangingAround)
   delete event;
 }
 
+static void stackAttack()
+{
+  char blah[1024];
+  memset(&blah[0], 1024, 0xef);
+}
+
 TEST(MessageParser, parsesListOfStrings)
 {
   const char * message = "[\"event\",\"some id\",\"a name\",[\"a value 1\", \"a value 2\", \"a value 3\", \"a value 4\"]]";
+  stackAttack();
   Event * event = MessageParser::parse( message );
   CEvent const * c_event = &event->asStruct();
   CHECK_EQUAL( (int)4, (int)c_event->listLength );
