@@ -2,5 +2,7 @@
 language: cpp
 compiler:
   - clang
+script:
+  - ./configure && make BUILD=test && make BUILD=test test
 before_script:
   - (cd cpputest2 && ./configure && make)
