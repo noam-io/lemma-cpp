@@ -23,6 +23,9 @@ CPPUTEST_HOME = cpputest2
 CPPUTEST_CXXFLAGS  = -std=c++11 -Wno-error=unused-function
 CPPUTEST_WARNINGFLAGS =  -Wshadow -Wswitch-default -Wswitch-enum -Wconversion
 
+CXXFLAGS = -include $(CPPUTEST_HOME)/include/CppUTest/MemoryLeakDetectorNewMacros.h -include $(CPPUTEST_HOME)/include/CppUTest/MemoryLeakDetectorMallocMacros.h
+CFLAGS = -include $(CPPUTEST_HOME)/include/CppUTest/MemoryLeakDetectorMallocMacros.h
+
 CPPUTEST_USE_MEM_LEAK_DETECTION.test = Y
 CPPUTEST_USE_MEM_LEAK_DETECTION.prod = N
 CPPUTEST_USE_MEM_LEAK_DETECTION = ${CPPUTEST_USE_MEM_LEAK_DETECTION.${BUILD}}
