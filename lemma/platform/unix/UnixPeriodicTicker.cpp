@@ -6,8 +6,7 @@
 UnixPeriodicTicker::UnixPeriodicTicker(float ms) : PeriodicTicker(ms)
 {
   lastUpdate = new struct timeval;
-  lastUpdate->tv_usec = 0;
-  lastUpdate->tv_sec = 0;
+  gettimeofday(lastUpdate, 0);
 }
 
 UnixPeriodicTicker::~UnixPeriodicTicker()
@@ -22,8 +21,9 @@ bool UnixPeriodicTicker::isItTime(){
 	long LastTime = lastUpdate->tv_sec * 1000000L + lastUpdate->tv_usec;
 	long CurrTime = tValCur.tv_sec * 1000000L + tValCur.tv_usec;
 
-	float elapsedMS = (CurrTime - LastTime) / 1000.0;
-	if(elapsedMS >= periodMs){
+	long elapsedUs = (CurrTime - LastTime);
+	long periodUs = (long)(periodMs * 1000L);
+	if(elapsedUs >= periodUs){
 		gettimeofday(lastUpdate, 0);
 		return true;
 	}
