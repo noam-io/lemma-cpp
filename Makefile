@@ -1,6 +1,7 @@
 #Set this to @ to keep the makefile quiet
 #SILENCE = @
 #CXX=g++
+BUILD := prod
 
 #---- Outputs ----#
 COMPONENT_NAME = LemmaLib
@@ -24,13 +25,19 @@ CPPUTEST_WARNINGFLAGS =  -Wshadow -Wswitch-default -Wswitch-enum -Wconversion
 
 CXXFLAGS = -include $(CPPUTEST_HOME)/include/CppUTest/MemoryLeakDetectorNewMacros.h -include $(CPPUTEST_HOME)/include/CppUTest/MemoryLeakDetectorMallocMacros.h
 CFLAGS = -include $(CPPUTEST_HOME)/include/CppUTest/MemoryLeakDetectorMallocMacros.h
+
+CPPUTEST_USE_MEM_LEAK_DETECTION.test = Y
+CPPUTEST_USE_MEM_LEAK_DETECTION.prod = N
+CPPUTEST_USE_MEM_LEAK_DETECTION = ${CPPUTEST_USE_MEM_LEAK_DETECTION.${BUILD}}
+
 #SRC_DIRS is a list of source directories that make up the target library
 #If test files are in these directories, their IMPORT_TEST_GROUPs need
 #to be included in main to force them to be linked in.  By convention
 #put them into an AllTests.h file in each directory
 SRC_DIRS = \
 	lemma/src \
-	lemma/jansson
+	lemma/jansson \
+	lemma/platform/unix
 
 PLATFORM_SRC_DIRS = \
 	lemma/platform/unix
@@ -82,9 +89,9 @@ $(VERIFICATION_TARGET): $(PRODUCTION_CODE_START) $(PLATFORM_OBJ) $(VERIFICATION_
 
 
 $(SAMPLE_TARGET): $(PRODUCTION_CODE_START) $(PLATFORM_OBJ) $(SAMPLE_MAIN) $(TARGET_LIB) $(USER_LIBS) $(PRODUCTION_CODE_END) $(STDLIB_CODE_START)
-	echo $(PLATFORM_OBJ)
+	@echo BUILD=${BUILD}
 	$(SILENCE)echo Linking $@
-	$(SILENCE)$(LINK.o) -o $@ $^ $(LD_LIBRARIES)
+	$(SILENCE)$(LINK.cpp) -lstdc++ -o $@ $^ $(LD_LIBRARIES)
 	./$(SAMPLE_TARGET)
 
 
